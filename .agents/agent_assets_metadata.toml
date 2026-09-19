@@ -1,0 +1,21 @@
+uploads = []
+
+[[generated]]
+id = "3Zaebb-HsSEdTIKpPgUq1"
+uri = "file://attached_assets/generated_images/generated_image.png"
+type = "image"
+title = "generated_image"
+
+[[outputs]]
+id = "gYj7QUlUmGYdhTIi7Fs3D"
+uri = "file://exports/relations-project.zip"
+type = "unspecified"
+title = "Project files ZIP"
+description = "Compressed project source, assets, configuration, and documentation. Dependencies, Git metadata, build output, Replit tooling, and temporary cache files were excluded."
+logical_id = "f0a7af0b-0a19-4900-8ad3-b5fad22fd29f"
+content_hash = "sha256:7de64b05c9787d12213c3c40183d8eb7a54d491200602a5a92a85b21108c7fa2"
+size = 9718218
+mtime_ms = 1789845321315
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:7dde45e3-6432-4e44-9dba-e277e0617abe/f0a7af0b-0a19-4900-8ad3-b5fad22fd29f/81863b16-ac22-4f92-95f5-7572a1adb20f"
+storage_version_token = "1789845326205186"
+content_type = "application/octet-stream"

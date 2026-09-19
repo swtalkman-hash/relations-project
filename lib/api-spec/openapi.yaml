@@ -1,0 +1,1141 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Ounsa Investment Platform API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+  - name: auth
+  - name: me
+  - name: investments
+  - name: wheel
+  - name: deposits
+  - name: withdrawals
+  - name: referrals
+  - name: tasks
+  - name: prices
+  - name: admin
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /auth/signup:
+    post:
+      operationId: signup
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /me/dashboard:
+    get:
+      operationId: getDashboard
+      tags: [me]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+
+  /me/settings:
+    patch:
+      operationId: updateSettings
+      tags: [me]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSettingsBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /me/password:
+    patch:
+      operationId: changePassword
+      tags: [me]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePasswordBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /me/welcome:
+    post:
+      operationId: setWelcomeReason
+      tags: [me]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WelcomeBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /me/transactions:
+    get:
+      operationId: getTransactions
+      tags: [me]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionList"
+
+  /investments/levels:
+    get:
+      operationId: getLevels
+      tags: [investments]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LevelList"
+
+  /investments:
+    get:
+      operationId: listInvestments
+      tags: [investments]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvestmentList"
+    post:
+      operationId: createInvestment
+      tags: [investments]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateInvestmentBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Investment"
+
+  /investments/collect:
+    post:
+      operationId: collectProfit
+      tags: [investments]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectResult"
+
+  /wheel/status:
+    get:
+      operationId: getWheelStatus
+      tags: [wheel]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WheelStatus"
+
+  /wheel/spin:
+    post:
+      operationId: spinWheel
+      tags: [wheel]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WheelResult"
+
+  /deposits:
+    get:
+      operationId: listMyDeposits
+      tags: [deposits]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DepositList"
+    post:
+      operationId: createDeposit
+      tags: [deposits]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDepositBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Deposit"
+
+  /withdrawals:
+    get:
+      operationId: listMyWithdrawals
+      tags: [withdrawals]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WithdrawalList"
+    post:
+      operationId: createWithdrawal
+      tags: [withdrawals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWithdrawalBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Withdrawal"
+
+  /referrals:
+    get:
+      operationId: getReferrals
+      tags: [referrals]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReferralSummary"
+
+  /tasks:
+    get:
+      operationId: listTasks
+      tags: [tasks]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskList"
+
+  /tasks/{key}/complete:
+    post:
+      operationId: completeTask
+      tags: [tasks]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskCompleteResult"
+
+  /prices/crypto:
+    get:
+      operationId: getCryptoPrices
+      tags: [prices]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CryptoPriceList"
+
+  /prices/gold:
+    get:
+      operationId: getGoldPrice
+      tags: [prices]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GoldPrice"
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /admin/logout:
+    post:
+      operationId: adminLogout
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /admin/me:
+    get:
+      operationId: adminMe
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUser"
+
+  /admin/stats:
+    get:
+      operationId: adminStats
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+
+  /admin/users:
+    get:
+      operationId: adminListUsers
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUserDetailList"
+
+  /admin/users/{id}:
+    get:
+      operationId: adminGetUser
+      tags: [admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUserDetail"
+
+  /admin/deposits:
+    get:
+      operationId: adminListDeposits
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminDepositList"
+
+  /admin/deposits/{id}/approve:
+    post:
+      operationId: adminApproveDeposit
+      tags: [admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /admin/deposits/{id}/reject:
+    post:
+      operationId: adminRejectDeposit
+      tags: [admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /admin/withdrawals:
+    get:
+      operationId: adminListWithdrawals
+      tags: [admin]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminWithdrawalList"
+
+  /admin/withdrawals/{id}/approve:
+    post:
+      operationId: adminApproveWithdrawal
+      tags: [admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+  /admin/withdrawals/{id}/reject:
+    post:
+      operationId: adminRejectWithdrawal
+      tags: [admin]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    OkResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+
+    SignupBody:
+      type: object
+      required: [name, password]
+      properties:
+        name:
+          type: string
+        phone:
+          type: ["string", "null"]
+        countryCode:
+          type: ["string", "null"]
+        email:
+          type: ["string", "null"]
+        password:
+          type: string
+        referralCode:
+          type: ["string", "null"]
+        language:
+          type: ["string", "null"]
+
+    LoginBody:
+      type: object
+      required: [identifier, password]
+      properties:
+        identifier:
+          type: string
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [user]
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+
+    User:
+      type: object
+      required: [id, name, balance, totalInvested, totalEarned, totalWithdrawn, referralCode, language, hasDoubled, qualifiedReferralCount, wheelSpinsAvailable, createdAt]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: ["string", "null"]
+        countryCode:
+          type: ["string", "null"]
+        email:
+          type: ["string", "null"]
+        balance:
+          type: string
+        totalInvested:
+          type: string
+        totalEarned:
+          type: string
+        totalWithdrawn:
+          type: string
+        referralCode:
+          type: string
+        referredBy:
+          type: ["string", "null"]
+        hasDoubled:
+          type: boolean
+        qualifiedReferralCount:
+          type: integer
+        wheelSpinsAvailable:
+          type: integer
+        language:
+          type: string
+        welcomeReason:
+          type: ["string", "null"]
+        welcomeShownAt:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    UpdateSettingsBody:
+      type: object
+      properties:
+        name:
+          type: ["string", "null"]
+        language:
+          type: ["string", "null"]
+
+    WelcomeBody:
+      type: object
+      required: [reason]
+      properties:
+        reason:
+          type: string
+
+    ChangePasswordBody:
+      type: object
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+
+    Level:
+      type: object
+      required: [level, name, minAmount, maxAmount, dailyMinRate, dailyMaxRate]
+      properties:
+        level:
+          type: integer
+        name:
+          type: string
+        minAmount:
+          type: number
+        maxAmount:
+          type: number
+        dailyMinRate:
+          type: number
+        dailyMaxRate:
+          type: number
+
+    LevelList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Level"
+
+    Investment:
+      type: object
+      required: [id, userId, amount, level, dailyMinRate, dailyMaxRate, totalCollected, active, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: string
+        level:
+          type: integer
+        dailyMinRate:
+          type: string
+        dailyMaxRate:
+          type: string
+        totalCollected:
+          type: string
+        lastCollectedAt:
+          type: ["string", "null"]
+        active:
+          type: boolean
+        createdAt:
+          type: string
+
+    InvestmentList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Investment"
+
+    CreateInvestmentBody:
+      type: object
+      required: [amount]
+      properties:
+        amount:
+          type: number
+
+    CollectResult:
+      type: object
+      required: [collected, newBalance]
+      properties:
+        collected:
+          type: string
+        newBalance:
+          type: string
+
+    Dashboard:
+      type: object
+      required: [user, activeInvestment, canCollect, nextCollectAt, todayEarnings, totalReferrals]
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        activeInvestment:
+          anyOf:
+            - $ref: "#/components/schemas/Investment"
+            - type: "null"
+        canCollect:
+          type: boolean
+        nextCollectAt:
+          type: ["string", "null"]
+        todayEarnings:
+          type: string
+        totalReferrals:
+          type: integer
+
+    WheelStatus:
+      type: object
+      required: [eligible, spinsAvailable, reason, prizes]
+      properties:
+        eligible:
+          type: boolean
+        spinsAvailable:
+          type: integer
+        reason:
+          type: string
+        prizes:
+          type: array
+          items:
+            $ref: "#/components/schemas/WheelPrize"
+
+    WheelPrize:
+      type: object
+      required: [label, amount, isPhysical]
+      properties:
+        label:
+          type: string
+        amount:
+          type: number
+        isPhysical:
+          type: boolean
+
+    WheelResult:
+      type: object
+      required: [prize, newBalance, spinsRemaining]
+      properties:
+        prize:
+          $ref: "#/components/schemas/WheelPrize"
+        newBalance:
+          type: string
+        spinsRemaining:
+          type: integer
+
+    Deposit:
+      type: object
+      required: [id, userId, amount, network, status, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: string
+        txHash:
+          type: ["string", "null"]
+        network:
+          type: string
+        status:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        processedAt:
+          type: ["string", "null"]
+
+    DepositList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Deposit"
+
+    CreateDepositBody:
+      type: object
+      required: [amount, network, txHash]
+      properties:
+        amount:
+          type: number
+        network:
+          type: string
+        txHash:
+          type: string
+
+    Withdrawal:
+      type: object
+      required: [id, userId, amount, fee, netAmount, address, network, status, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: string
+        fee:
+          type: string
+        netAmount:
+          type: string
+        address:
+          type: string
+        network:
+          type: string
+        status:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        processedAt:
+          type: ["string", "null"]
+
+    WithdrawalList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Withdrawal"
+
+    CreateWithdrawalBody:
+      type: object
+      required: [amount, address, network]
+      properties:
+        amount:
+          type: number
+        address:
+          type: string
+        network:
+          type: string
+
+    ReferralSummary:
+      type: object
+      required: [code, link, totalReferrals, qualifiedReferrals, totalCommission, level1, level2, level3]
+      properties:
+        code:
+          type: string
+        link:
+          type: string
+        totalReferrals:
+          type: integer
+        qualifiedReferrals:
+          type: integer
+        totalCommission:
+          type: string
+        level1:
+          $ref: "#/components/schemas/ReferralTier"
+        level2:
+          $ref: "#/components/schemas/ReferralTier"
+        level3:
+          $ref: "#/components/schemas/ReferralTier"
+
+    ReferralTier:
+      type: object
+      required: [count, commissionRate, totalEarned, members]
+      properties:
+        count:
+          type: integer
+        commissionRate:
+          type: number
+        totalEarned:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReferralMember"
+
+    ReferralMember:
+      type: object
+      required: [id, name, joinedAt, totalDeposited, qualified]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        joinedAt:
+          type: string
+        totalDeposited:
+          type: string
+        qualified:
+          type: boolean
+
+    Transaction:
+      type: object
+      required: [id, userId, type, amount, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        amount:
+          type: string
+        description:
+          type: ["string", "null"]
+        refId:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    TransactionList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Transaction"
+
+    Task:
+      type: object
+      required: [key, title, description, reward, completed]
+      properties:
+        key:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        reward:
+          type: number
+        completed:
+          type: boolean
+
+    TaskList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Task"
+
+    TaskCompleteResult:
+      type: object
+      required: [reward, newBalance]
+      properties:
+        reward:
+          type: string
+        newBalance:
+          type: string
+
+    CryptoPrice:
+      type: object
+      required: [symbol, name, price, change24h]
+      properties:
+        symbol:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        change24h:
+          type: number
+        image:
+          type: ["string", "null"]
+
+    CryptoPriceList:
+      type: array
+      items:
+        $ref: "#/components/schemas/CryptoPrice"
+
+    GoldPrice:
+      type: object
+      required: [pricePerOunce, pricePerGram, currency, updatedAt]
+      properties:
+        pricePerOunce:
+          type: number
+        pricePerGram:
+          type: number
+        currency:
+          type: string
+        updatedAt:
+          type: string
+
+    AdminLoginBody:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    AdminUser:
+      type: object
+      required: [id, username]
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+
+    AdminStats:
+      type: object
+      required: [totalUsers, totalDeposited, totalWithdrawn, pendingDeposits, pendingWithdrawals, totalBalance, recentSignups]
+      properties:
+        totalUsers:
+          type: integer
+        totalDeposited:
+          type: string
+        totalWithdrawn:
+          type: string
+        pendingDeposits:
+          type: integer
+        pendingWithdrawals:
+          type: integer
+        totalBalance:
+          type: string
+        recentSignups:
+          type: integer
+
+    AdminUserDetail:
+      type: object
+      required: [user, deposits, withdrawals, investments, transactions, referrals]
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        deposits:
+          type: array
+          items:
+            $ref: "#/components/schemas/Deposit"
+        withdrawals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Withdrawal"
+        investments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Investment"
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+        referrals:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReferralMember"
+
+    AdminUserDetailList:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+
+    AdminDepositRow:
+      type: object
+      required: [id, userId, userName, amount, network, status, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        userName:
+          type: string
+        userPhone:
+          type: ["string", "null"]
+        userEmail:
+          type: ["string", "null"]
+        amount:
+          type: string
+        txHash:
+          type: ["string", "null"]
+        network:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+
+    AdminDepositList:
+      type: array
+      items:
+        $ref: "#/components/schemas/AdminDepositRow"
+
+    AdminWithdrawalRow:
+      type: object
+      required: [id, userId, userName, amount, fee, netAmount, address, network, status, createdAt]
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        userName:
+          type: string
+        userPhone:
+          type: ["string", "null"]
+        userEmail:
+          type: ["string", "null"]
+        amount:
+          type: string
+        fee:
+          type: string
+        netAmount:
+          type: string
+        address:
+          type: string
+        network:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+
+    AdminWithdrawalList:
+      type: array
+      items:
+        $ref: "#/components/schemas/AdminWithdrawalRow"

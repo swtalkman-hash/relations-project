@@ -1,0 +1,36 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="36" fill="#08080b"/>
+  <rect width="180" height="180" rx="36" fill="url(#bg_grad)"/>
+  <rect x="2" y="2" width="176" height="176" rx="34" stroke="url(#border_grad)" stroke-width="2"/>
+  <path d="M90 30 L128 46 L128 90 C128 114 110 132 90 142 C70 132 52 114 52 90 L52 46 Z" fill="url(#shield_grad)" opacity="0.15"/>
+  <path d="M90 36 L124 50 L124 90 C124 112 107 129 90 139 C73 129 56 112 56 90 L56 50 Z" fill="none" stroke="url(#shield_stroke)" stroke-width="2.5"/>
+  <text x="90" y="104" font-family="Arial, sans-serif" font-weight="900" font-size="52" fill="url(#text_grad)" text-anchor="middle" letter-spacing="-2">A</text>
+  <circle cx="90" cy="128" r="4" fill="url(#dot_grad)" opacity="0.8"/>
+  <defs>
+    <linearGradient id="bg_grad" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#141408"/>
+      <stop offset="100%" stop-color="#08080b"/>
+    </linearGradient>
+    <linearGradient id="border_grad" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#d4af37" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="shield_grad" x1="90" y1="30" x2="90" y2="142" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#a07c1a"/>
+    </linearGradient>
+    <linearGradient id="shield_stroke" x1="90" y1="36" x2="90" y2="139" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#a07c1a" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="text_grad" x1="64" y1="58" x2="116" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f0d060"/>
+      <stop offset="100%" stop-color="#c8940a"/>
+    </linearGradient>
+    <linearGradient id="dot_grad" x1="86" y1="124" x2="94" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#a07c1a"/>
+    </linearGradient>
+  </defs>
+</svg>
