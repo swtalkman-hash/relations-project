@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: relations-api
+    runtime: node
+    buildCommand: npm install && npm run build:render
+    startCommand: npm start
+    healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
