@@ -2,6 +2,7 @@ services:
   - type: web
     name: relations-api
     runtime: node
+    plan: free
     buildCommand: npm install && npm run build:render
     startCommand: npm start
     healthCheckPath: /api/healthz
